@@ -1,0 +1,19 @@
+{
+  "name": "social-network-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aidanamato/social-network-api.git"
+  },
+  "author": "Aidan Amato",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aidanamato/social-network-api/issues"
+  },
+  "homepage": "https://github.com/aidanamato/social-network-api#readme"
+}
