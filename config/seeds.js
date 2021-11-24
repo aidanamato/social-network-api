@@ -55,8 +55,22 @@ db.once('open', async () => {
     createdThoughts.push(createdThought);
   }
 
-  console.log('createdThoughts:', createdThoughts);
-  
+  // create reactions
+  for (let i = 0; i < 50; i += 1) {
+    const reactionBody = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+
+    const randomUserIndex = Math.floor(Math.random() * users.length);
+    const { username } = users[randomUserIndex];
+
+    const randomThoughtIndex = Math.floor(Math.random() * createdThoughts.length);
+    const { _id: thoughtId } = createdThoughts[randomThoughtIndex];
+
+    await Thought.updateOne(
+      { _id: thoughtId },
+      { $push: { reactions: { reactionBody, username } } }
+    );
+  }
+
   console.log('all done!');
   process.exit(0);
 });

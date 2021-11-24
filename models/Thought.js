@@ -22,6 +22,13 @@ const reactionSchema = new Schema(
       default: Date.now,
       get: timestamp => format_date(timestamp)
     }
+  },
+  {
+    toJSON: {
+      getters: true
+    },
+    id: false,
+    _id: false
   }
 );
 
@@ -47,7 +54,8 @@ const thoughtSchema = new Schema(
     toJSON: {
       virtuals: true,
       getters: true
-    }
+    },
+    id: false
   }
 );
 
