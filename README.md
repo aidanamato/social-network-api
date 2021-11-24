@@ -4,7 +4,7 @@
 
 ## Description
 
-This is a RESTful API created with express.js, a MongoDb database, and the Mongoose ODM. The database is populated with data pertaining to a mock Social Network application, and this API is built with endpoints that allow a user to perform CRUD operations on all facets of the database.
+This is a RESTful API created with express.js, a MongoDB database, and the Mongoose ODM. The database is populated with data pertaining to a mock Social Network application, and this API is built with endpoints that allow a user to perform CRUD operations on all facets of the database.
 
 ## Table of Contents
 
@@ -30,45 +30,40 @@ The base address when running the server is `localhost:3001/api`. This precedes 
 
 ### User Routes
 
-* `GET /user` - Returns a list of all users.
-* `GET /user/:id` - Returns a single user with their `_id` passed as a parameter.
-* `POST /user` - Creates a new user. The request body should be formatted as follows:
+* `GET /users` - Returns a list of all users.
+* `GET /users/:id` - Returns a single user with their `_id` passed as a parameter.
+* `POST /users` - Creates a new user. The request body should be formatted as follows:
   * {  
-      "username": "*user name here*" ,
-      "email": "*email here*" 
+      "username": "*user name here*",
+      "email": "*email here*"
     }
-* `PUT /user/:id` - Updates an existing user with their `_id` passed as a parameter. The request body should be formatted the same as `POST /user`.
-* `DELETE /user/:id` - Deletes a user with their `_id` passed as a parameter.
-* `POST /user/:userId/friends/:friendId` - Updates a user's friend list, with the `_id` of the first user passed as `:userId` and the `_id` of the second user passed as `:friendId`.
+* `PUT /users/:id` - Updates an existing user with their `_id` passed as a parameter. The request body should be formatted the same as `POST /user`.
+* `DELETE /users/:id` - Deletes a user with their `_id` passed as a parameter.
+* `POST /users/:userId/friends/:friendId` - Create a friendship between two users, with the `_id` of the first user passed as `:userId` and the `_id` of the second user passed as `:friendId`.
+* `DELETE /users/:userId/friends/:friendId` - Delete a friendship between two users, with the `_id` of the first user passed as `:userId` and the `_id` of the second user passed as `:friendId`.
 
-### Product Routes
+### Thought Routes
 
-* `GET /products` - Returns a list of all products.
-* `GET /products/:id` - Returns a single product with the id passed as a parameter.
-* `POST /products` - Creates a new Product with the id passed as a parameter. The request body should be formatted as follows:
+* `GET /thoughts` - Returns a list of all thoughts.
+* `GET /thoughts/:id` - Returns a single thought with the `_id` passed as a parameter.
+* `POST /thoughts` - Creates a new thought with the `_id` passed as a parameter. The request body should be formatted as follows:
   * {  
-      "product_name": "*product name here*"  
-      "price": *product price here*,  
-      "stock": *product stock here*,  
-      "category_id": *id of category to which product belongs*,  
-      -Optional-  
-      tagIds: [*array of tag id's to which product belongs*]  
+      "thoughtText": "*thought text here*",
+      "username": *username here*
     }
-* `PUT /products/:id` - Updates an existing product. The request body should be formatted the same as `POST /products`.
-* `DELETE /products/:id` - Deletes a product with the id passed as a parameter.
+* `PUT /thoughts/:id` - Updates an existing thought with the `_id` passed as a parameter. . The request body should be formatted the same as `POST /thought`.
+* `DELETE /thoughts/:id` - Deletes a thought with the `_id` passed as a parameter.
 
-### Tag Routes
+#### Reaction Routes
 
-* `GET /tags` - Returns a list of all tags.
-* `GET /tags/:id` - Returns a single tag with the id passed as a parameter.
-* `POST /tags` - Creates a new tag with the id passed as a parameter. The request body should be formatted as follows:
-  * {  
-    "tag_name": "*tag name here*"  
-  }
-* `PUT /tags/:id` - Updates an existing tag. The request body should be formatted the same as `POST /tags`.
-* `DELETE /tags/:id` - Deletes a tag with the id passed as a parameter.
+* `POST /thoughts/:thoughtId/reactions` - Creates a new reaction with the thought `_id` passed as a parameter. The request body should be formatted as follows:
+  * {
+      "reactionBody": "*reaction body here*",
+      "username": "*username here*"
+    }
+* `DELETE /thoughts/:thoughtId/reactions/reactionId` - Creates a reaction with the thought `_id` and the reaction `_id` passed as a parameter.
 
-### [Walkthrough Video](https://watch.screencastify.com/v/ZQDiURHNmwazRrl0FlzY)
+### [Walkthrough Video]()
 
 ## License
 
@@ -76,21 +71,16 @@ The base address when running the server is `localhost:3001/api`. This precedes 
 
 ## Credits
 
-Starter Code
-
-* [UCF Coding Bootcamp](https://github.com/coding-boot-camp/fantastic-umbrella)
-
 Technologies
 
 * [Node.js](https://nodejs.org/en/)
-* [MySQL](https://www.mysql.com/)
+* [MongoDB](https://www.mongodb.com/)
 
 NPM Dependencies
 
-* [Express](https://www.npmjs.com/package/express)
-* [Sequelize](https://sequelize.org/)
-* [Node MySQL 2](https://www.npmjs.com/package/mysql2?__cf_chl_captcha_tk__=pmd_D_9ZYQ1MY_s2zyp9_cyigjzi9F6rp.HQGrKz3R3K9gA-1632161698-0-gqNtZGzNAuWjcnBszQfR)
-* [dotenv](https://www.npmjs.com/package/dotenv)
+* [Express](https://expressjs.com/)
+* [Mongoose](https://mongoosejs.com/)
+* [faker](https://www.npmjs.com/package/faker)
 
 ## Authors
 
