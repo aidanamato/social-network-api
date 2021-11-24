@@ -4,7 +4,7 @@
 
 ## Description
 
-This is a RESTful API created with express.js, a MongoDB database, and the Mongoose ODM. The database is populated with data pertaining to a mock Social Network application, and this API is built with endpoints that allow a user to perform CRUD operations on all facets of the database.
+This is a RESTful API created with Express.js, a MongoDB database, and the Mongoose ODM. The database is populated with data pertaining to a mock Social Network application, and this API is built with endpoints that allow a user to perform CRUD operations on all facets of the database.
 
 ## Table of Contents
 
