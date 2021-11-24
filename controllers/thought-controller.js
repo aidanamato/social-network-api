@@ -99,6 +99,64 @@ const thoughtController = {
         console.log(err);
         res.status(400).json(err);
       });
+  },
+
+  // '/api/thoughts/:thoughtId/reactions' methods
+  async createReaction({ params, body }, res) {
+    const user = await User.findOne({ username: body.username });
+    if (!user) {
+      res.status(400).json({message: 'No user found with this username!'});
+      return;
+    }
+
+    Thought.findOneAndUpdate(
+      { _id: params.thoughtId },
+      { $push: { reactions: body }},
+      { new: true, runValidators: true }
+    )
+      .then(dbThoughtData => {
+        if (!dbThoughtData) {
+          res.status(400).json({message: 'No thought found with this id!'});
+          return;
+        }
+
+        const response = {
+          ...dbThoughtData._doc,
+          createdAt: format_date(dbThoughtData._doc.createdAt),
+        }
+        delete response.__v;
+
+        res.json(response);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  },
+  deleteReaction({ params }, res) {
+    Thought.findOneAndUpdate(
+      { _id: params.thoughtId},
+      { $pull: { reactions: { reactionId: params.reactionsId } } },
+      { new: true, runValidators: true }
+    )
+      .then(dbThoughtData => {
+        if (!dbThoughtData) {
+          res.status(400).json({message: 'No thought found with this id!'});
+          return;
+        }
+
+        const response = {
+          ...dbThoughtData._doc,
+          createdAt: format_date(dbThoughtData._doc.createdAt),
+        }
+        delete response.__v;
+
+        res.json(response);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+      });
   }
 };
 
