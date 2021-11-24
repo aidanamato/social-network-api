@@ -36,6 +36,27 @@ db.once('open', async () => {
     await User.updateOne({ _id: userId }, { $addToSet: { friends: friendId } });
   }
 
+  // create thoughts
+  let createdThoughts = [];
+  for (let i = 0; i < 50; i += 1) {
+    const thoughtText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+
+    const randomUserIndex = Math.floor(Math.random() * users.length);
+    const { username } = users[randomUserIndex];
+    const userId = users[randomUserIndex]._id.toString();
+
+    const createdThought = await Thought.create({ thoughtText, username });
+
+    await User.updateOne(
+      { _id: userId },
+      { $push: { thoughts: createdThought._id } }
+    );
+
+    createdThoughts.push(createdThought);
+  }
+
+  console.log('createdThoughts:', createdThoughts);
+  
   console.log('all done!');
   process.exit(0);
 });
