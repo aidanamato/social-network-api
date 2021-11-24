@@ -5,8 +5,8 @@ const { format_date} = require('../utils/helpers');
 const reactionSchema = new Schema(
   {
     reactionId: {
-      type: Schema.types.ObjectId,
-      default: new Types.ObjectId()
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId()
     },
     reactionBody: {
       type: String,
