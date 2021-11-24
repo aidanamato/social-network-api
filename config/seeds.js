@@ -34,6 +34,7 @@ db.once('open', async () => {
     }
 
     await User.updateOne({ _id: userId }, { $addToSet: { friends: friendId } });
+    await User.updateOne({ _id: friendId }, { $addToSet: { friends: userId } });
   }
 
   // create thoughts

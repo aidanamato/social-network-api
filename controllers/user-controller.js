@@ -81,41 +81,103 @@ const userController = {
   },
 
   // '/:userId/friends/:friendId' methods
-  addFriend({ params }, res) {
-    User.findOneAndUpdate(
+  async addFriend({ params }, res) {
+    const friendOne = await User.findOneAndUpdate(
       { _id: params.userId },
       { $addToSet: { friends: params.friendId } },
       { new: true, runValidators: true }
-    )
-      .then(dbUserData => {
-        if (!dbUserData) {
-          res.status(404).json({ message: 'No friend found with this id!' });
-          return;  
-        }
-        res.json(dbUserData);
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(400).json(err);
-      });
+    );
+    if (!friendOne) {
+      res.status(404).json({ message: `No friend found with an id of ${params.userId}`});
+      return;  
+    }
+    
+    const { 
+      _id: friendOneId, 
+      username: friendOneUsername, 
+      email: friendOneEmail,
+      friends: friendOneFriends
+    } = friendOne;
+
+    const friendTwo = await User.findOneAndUpdate(
+      { _id: params.friendId },
+      { $addToSet: { friends: params.userId } },
+      { new: true, runValidators: true }
+    );
+    if (!friendTwo) {
+      res.status(404).json({ message: `No friend found with an id of ${params.friendId}`});
+      return;
+    }
+
+    const { 
+      _id: friendTwoId, 
+      username: friendTwoUsername, 
+      email: friendTwoEmail,
+      friends: friendTwoFriends
+    } = friendTwo;
+    
+    const response = { 
+      friendOne: {
+        _id: friendOneId,
+        username: friendOneUsername,
+        email: friendOneEmail,
+        friends: friendOneFriends
+      }, 
+      friendTwo: {
+        _id :friendTwoId,
+        username: friendTwoUsername,
+        email: friendTwoEmail,
+        friends: friendTwoFriends
+      }
+    }
+    res.json(response);
   },
-  deleteFriend({ params }, res) {
-    User.findOneAndUpdate(
+  async deleteFriend({ params }, res) {
+    const friendOne = await User.findOneAndUpdate(
       { _id: params.userId },
       { $pull: { friends: params.friendId } },
       { new: true, runValidators: true }
-    )
-      .then(dbUserData => {
-        if (!dbUserData) {
-          res.status(404).json({ message: 'No friend found with this id!' });
-          return;  
-        }
-        res.json(dbUserData);
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(400).json(err);
-      });
+    );
+    if (!friendOne) {
+      res.status(404).json({ message: `No friend found with an id of ${params.userId}`});
+      return;  
+    }
+    
+    const { 
+      _id: friendOneId, 
+      username: friendOneUsername, 
+      email: friendOneEmail
+    } = friendOne;
+
+    const friendTwo = await User.findOneAndUpdate(
+      { _id: params.friendId },
+      { $pull: { friends: params.friendId } },
+      { new: true, runValidators: true }
+    );
+    if (!friendTwo) {
+      res.status(404).json({ message: `No friend found with an id of ${params.friendId}`});
+      return;
+    }
+
+    const { 
+      _id: friendTwoId, 
+      username: friendTwoUsername, 
+      email: friendTwoEmail
+    } = friendTwo;
+
+    const response = { 
+      friendOne: {
+        _id: friendOneId,
+        username: friendOneUsername,
+        password: friendOneEmail
+      }, 
+      friendTwo: {
+        _id :friendTwoId,
+        username: friendTwoUsername,
+        password: friendTwoEmail
+      }
+    }
+    res.json(response);
   }
 }
 
