@@ -2,7 +2,7 @@
   "name": "social-network-api",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
     "seed": "node config/seeds"
   },

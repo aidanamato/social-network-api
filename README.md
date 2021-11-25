@@ -63,7 +63,7 @@ The base address when running the server is `localhost:3001/api`. This precedes 
     }
 * `DELETE /thoughts/:thoughtId/reactions/reactionId` - Creates a reaction with the thought `_id` and the reaction `_id` passed as a parameter.
 
-### [Walkthrough Video]()
+### [Walkthrough Video](https://watch.screencastify.com/v/gHnEQHu9E9ICK6ijvtAB)
 
 ## License
 
